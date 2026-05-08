@@ -20,14 +20,78 @@ body {
   background: #eef3f8;
 }
 
-.dark body {
-  background: #07111f;
+.app-bg {
+  --accent: #0f766e;
+  --accent-light: #ccfbf1;
+  --accent-text: #5eead4;
+  --hero-a: #0f172a;
+  --hero-b: #134e4a;
+  --glow-one: rgba(20, 184, 166, 0.2);
+  --glow-two: rgba(15, 23, 42, 0.13);
+  background:
+    radial-gradient(circle at top left, var(--glow-one), transparent 32rem),
+    radial-gradient(circle at top right, var(--glow-two), transparent 28rem),
+    linear-gradient(180deg, #f8fafc 0%, #eef3f8 42%, #e8eef5 100%);
+}
+
+.dark.app-bg {
+  --accent: #14b8a6;
+  --accent-light: rgba(20, 184, 166, 0.16);
+  --accent-text: #99f6e4;
+  --hero-a: #020617;
+  --hero-b: #0f172a;
+  --glow-one: rgba(20, 184, 166, 0.14);
+  --glow-two: rgba(59, 130, 246, 0.12);
+  background:
+    radial-gradient(circle at top left, var(--glow-one), transparent 32rem),
+    radial-gradient(circle at top right, var(--glow-two), transparent 28rem),
+    linear-gradient(180deg, #020617 0%, #0f172a 48%, #111827 100%);
+}
+
+.hero-panel {
+  background:
+    linear-gradient(135deg, var(--hero-a), var(--hero-b)),
+    #0f172a;
+}
+
+.accent-tile,
+.primary-btn,
+.accent-bar {
+  background: var(--accent);
+}
+
+.primary-btn:hover {
+  filter: brightness(1.08);
+}
+
+.accent-text {
+  color: var(--accent-text);
+}
+
+.accent-soft {
+  background: var(--accent-light);
+  color: var(--accent);
 }
 
 button,
 input,
 select {
   font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid rgba(20, 184, 166, 0.28);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: rgba(20, 184, 166, 0.22);
 }
 
 .no-scrollbar::-webkit-scrollbar {
