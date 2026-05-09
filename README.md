@@ -8,6 +8,7 @@ FinanceTracker is a modern frontend-only financial tracking web app built with R
 - Separate Home, Summary, Stocks, and Crypto pages
 - Real-time portfolio calculations
 - Dashboard analytics
+- Gold,Silver,Platinum and other rare earth metals
 - Portfolio allocation and trend charts
 - Search crypto assets using CoinGecko
 - Track common US stocks and ETFs using Stooq public quote data
