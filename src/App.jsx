@@ -4,6 +4,7 @@ import Header from './components/Header';
 import HomePage from './components/HomePage';
 import PortfolioPage from './components/PortfolioPage';
 import LessonsPage from './components/LessonsPage';
+import RareMetalsPage from './components/raremetals';
 
 const coins = [
   { id: 'bitcoin', symbol: 'BTC', name: 'Bitcoin' },
@@ -156,7 +157,7 @@ export default function App() {
   }
 
   return (
-    <div className={(theme === 'dark' ? 'dark ' : '') + 'min-h-screen bg-slate-100 dark:bg-slate-950'}>
+    <div className={(theme === 'dark' ? 'dark ' : '') + 'app-bg min-h-screen'}>
       <Header
         page={page}
         setPage={setPage}
@@ -195,6 +196,8 @@ export default function App() {
           onDelete={deleteStock}
         />
       )}
+
+      {page === 'raremetals' && <RareMetalsPage />}
 
       {page === 'lessons' && <LessonsPage />}
     </div>

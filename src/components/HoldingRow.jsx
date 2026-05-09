@@ -22,7 +22,7 @@ export default function HoldingRow({
             {item.name}
           </h3>
 
-          <p className="text-sm text-slate-500">
+          <p className="text-sm text-slate-500 dark:text-slate-400">
             {item.quantity} {unit}
           </p>
         </div>

@@ -43,13 +43,13 @@ export default function PortfolioPage({
       </div>
 
       {loading && (
-        <p className="mt-4 bg-blue-100 p-3 rounded-md">
+        <p className="mt-4 bg-blue-100 p-3 rounded-md text-blue-900 dark:bg-blue-950 dark:text-blue-100">
           Loading prices...
         </p>
       )}
 
       {error && (
-        <p className="mt-4 bg-red-100 p-3 rounded-md">
+        <p className="mt-4 bg-red-100 p-3 rounded-md text-red-900 dark:bg-red-950 dark:text-red-100">
           {error}
         </p>
       )}
@@ -65,7 +65,7 @@ export default function PortfolioPage({
           onAdd={onAdd}
         />
 
-        <div className="bg-white dark:bg-slate-900 rounded-md p-5">
+        <div className="bg-white dark:bg-slate-900 rounded-md p-5 border border-transparent dark:border-slate-800">
           <h2 className="text-2xl font-bold dark:text-white mb-4">
             Holdings
           </h2>

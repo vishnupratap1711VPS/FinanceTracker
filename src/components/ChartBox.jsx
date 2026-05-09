@@ -10,7 +10,7 @@ import {
 
 export default function ChartBox({ title, data }) {
   return (
-    <div className="bg-white dark:bg-slate-900 p-5 rounded-md">
+    <div className="bg-white dark:bg-slate-900 p-5 rounded-md border border-transparent dark:border-slate-800">
       <h2 className="text-2xl font-bold dark:text-white mb-4">
         {title}
       </h2>
