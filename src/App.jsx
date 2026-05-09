@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { BookOpen, Coins, Home, PieChart, Plus, Trash2, TrendingUp, Wallet } from 'lucide-react';
+import { BookOpen, Coins, Gem, Home, PieChart, Plus, Trash2, TrendingUp, Wallet } from 'lucide-react';
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 const coins = [
@@ -24,6 +24,17 @@ const stocks = [
   { id: 'SPY', symbol: 'SPY', name: 'S&P 500 ETF' },
 ];
 
+const metals = [
+  { id: 'GOLD', symbol: 'XAU', name: 'Gold' },
+  { id: 'SILVER', symbol: 'XAG', name: 'Silver' },
+  { id: 'PLATINUM', symbol: 'XPT', name: 'Platinum' },
+  { id: 'PALLADIUM', symbol: 'XPD', name: 'Palladium' },
+  { id: 'RHODIUM', symbol: 'RHD', name: 'Rhodium' },
+  { id: 'NEODYMIUM', symbol: 'ND', name: 'Neodymium' },
+  { id: 'DYSPROSIUM', symbol: 'DY', name: 'Dysprosium' },
+  { id: 'TERBIUM', symbol: 'TB', name: 'Terbium' },
+];
+
 const starterCrypto = [
   { id: 1, apiId: 'bitcoin', name: 'Bitcoin', symbol: 'BTC', quantity: 0.15, buyPrice: 55000 },
   { id: 2, apiId: 'ethereum', name: 'Ethereum', symbol: 'ETH', quantity: 2, buyPrice: 2800 },
@@ -32,6 +43,11 @@ const starterCrypto = [
 const starterStocks = [
   { id: 3, apiId: 'AAPL', name: 'Apple', symbol: 'AAPL', quantity: 4, buyPrice: 180 },
   { id: 4, apiId: 'MSFT', name: 'Microsoft', symbol: 'MSFT', quantity: 3, buyPrice: 390 },
+];
+
+const starterMetals = [
+  { id: 5, apiId: 'GOLD', name: 'Gold', symbol: 'XAU', quantity: 2, buyPrice: 2250 },
+  { id: 6, apiId: 'SILVER', name: 'Silver', symbol: 'XAG', quantity: 40, buyPrice: 28 },
 ];
 
 const sampleStockPrices = {
@@ -43,6 +59,17 @@ const sampleStockPrices = {
   AMZN: 185,
   META: 500,
   SPY: 520,
+};
+
+const sampleMetalPrices = {
+  GOLD: 2350,
+  SILVER: 31,
+  PLATINUM: 980,
+  PALLADIUM: 940,
+  RHODIUM: 4700,
+  NEODYMIUM: 72,
+  DYSPROSIUM: 375,
+  TERBIUM: 920,
 };
 
 const cryptoTrend = [
@@ -65,10 +92,21 @@ const stockTrend = [
   { day: 'Sun', value: 2415 },
 ];
 
+const metalTrend = [
+  { day: 'Mon', value: 5600 },
+  { day: 'Tue', value: 5720 },
+  { day: 'Wed', value: 5680 },
+  { day: 'Thu', value: 5840 },
+  { day: 'Fri', value: 5920 },
+  { day: 'Sat', value: 5890 },
+  { day: 'Sun', value: 6040 },
+];
+
 const marketTrend = cryptoTrend.map((item, index) => ({
   day: item.day,
   crypto: item.value,
   stocks: stockTrend[index].value,
+  metals: metalTrend[index].value,
 }));
 
 function money(value) {
@@ -80,6 +118,7 @@ function Header({ page, setPage, theme, setTheme }) {
     { id: 'home', label: 'Home', icon: Home },
     { id: 'crypto', label: 'Crypto', icon: Coins },
     { id: 'stocks', label: 'Stocks', icon: TrendingUp },
+    { id: 'metals', label: 'Metals', icon: Gem },
     { id: 'lessons', label: 'Lessons', icon: BookOpen },
   ];
 
@@ -264,7 +303,7 @@ function PortfolioPage(props) {
       {props.error && <p className="mt-4 rounded-md bg-red-50 p-3 text-red-700">{props.error}</p>}
 
       <div className="mt-6">
-        <ChartBox title={props.chartTitle} data={props.trend} lines={[{ key: 'value', name: props.valueLabel, color: '#14b8a6' }]} />
+        <ChartBox title={props.chartTitle} data={props.trend} lines={[{ key: 'value', name: props.valueLabel, color: props.chartColor || '#14b8a6' }]} />
       </div>
 
       <div className="mt-6 grid gap-6 lg:grid-cols-[340px_1fr]">
@@ -307,6 +346,7 @@ function HomePage({ setPage }) {
   const cards = [
     { title: 'Crypto', text: 'Track coins, add holdings, and view live values.', page: 'crypto', icon: Coins },
     { title: 'Stocks', text: 'Watch stock holdings with fallback prices when APIs fail.', page: 'stocks', icon: TrendingUp },
+    { title: 'Metals', text: 'Follow gold, silver, platinum, and rare earth metals.', page: 'metals', icon: Gem },
     { title: 'Lessons', text: 'See the React concepts used to build this project.', page: 'lessons', icon: BookOpen },
   ];
 
@@ -316,7 +356,7 @@ function HomePage({ setPage }) {
         <div className="grid gap-8 p-7 md:grid-cols-[1.25fr_.75fr] md:items-center">
           <div>
             <p className="accent-text text-sm font-semibold uppercase tracking-wide">Welcome back</p>
-            <h2 className="mt-3 max-w-2xl text-5xl font-black tracking-tight">Manage crypto and stocks in one simple React dashboard.</h2>
+            <h2 className="mt-3 max-w-2xl text-5xl font-black tracking-tight">Manage crypto, stocks, and metals in one simple React dashboard.</h2>
             <p className="mt-4 max-w-xl text-slate-300">A clean beginner project using JSX, state, events, props, conditional rendering, lists, effects, and API data.</p>
             <div className="mt-6 flex flex-wrap gap-3">
               <button onClick={() => setPage('crypto')} className="primary-btn rounded-md px-5 py-3 font-bold text-white">Open Crypto</button>
@@ -331,7 +371,7 @@ function HomePage({ setPage }) {
         </div>
       </section>
 
-      <section className="mt-6 grid gap-4 md:grid-cols-3">
+      <section className="mt-6 grid gap-4 md:grid-cols-4">
         {cards.map((card) => {
           const Icon = card.icon;
           return (
@@ -351,6 +391,7 @@ function HomePage({ setPage }) {
           lines={[
             { key: 'crypto', name: 'Crypto', color: '#14b8a6' },
             { key: 'stocks', name: 'Stocks', color: '#3b82f6' },
+            { key: 'metals', name: 'Metals', color: '#f59e0b' },
           ]}
         />
       </div>
@@ -377,8 +418,10 @@ export default function App() {
   const [theme, setTheme] = useState('light');
   const [cryptoItems, setCryptoItems] = useState(starterCrypto);
   const [stockItems, setStockItems] = useState(starterStocks);
+  const [metalItems, setMetalItems] = useState(starterMetals);
   const [cryptoPrices, setCryptoPrices] = useState({});
   const [stockPrices, setStockPrices] = useState(sampleStockPrices);
+  const [metalPrices] = useState(sampleMetalPrices);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -425,6 +468,7 @@ export default function App() {
       {page === 'home' && <HomePage setPage={setPage} />}
       {page === 'crypto' && <PortfolioPage items={cryptoItems} prices={cryptoPrices} choices={coins} unit="coins" hero="Live crypto portfolio value" valueLabel="Crypto value" formTitle="Add coin" listTitle="Crypto holdings" chartTitle="Crypto market trend" trend={cryptoTrend} loading={loading} error={error} onAdd={(item) => setCryptoItems([...cryptoItems, item])} onDelete={(id) => setCryptoItems(cryptoItems.filter((item) => item.id !== id))} />}
       {page === 'stocks' && <PortfolioPage items={stockItems} prices={stockPrices} choices={stocks} unit="shares" hero="Live stock portfolio value" valueLabel="Stock value" formTitle="Add stock" listTitle="Stock holdings" chartTitle="Stock market trend" trend={stockTrend} loading={loading} error={error} onAdd={(item) => setStockItems([...stockItems, item])} onDelete={(id) => setStockItems(stockItems.filter((item) => item.id !== id))} />}
+      {page === 'metals' && <PortfolioPage items={metalItems} prices={metalPrices} choices={metals} unit="units" hero="Precious and rare earth metals value" valueLabel="Metals value" formTitle="Add metal" listTitle="Metal holdings" chartTitle="Metals market trend" chartColor="#f59e0b" trend={metalTrend} loading={false} error="" onAdd={(item) => setMetalItems([...metalItems, item])} onDelete={(id) => setMetalItems(metalItems.filter((item) => item.id !== id))} />}
       {page === 'lessons' && <LessonsPage />}
     </div>
   );
